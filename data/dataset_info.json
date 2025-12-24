@@ -1,4 +1,16 @@
 {
+  "train": {
+    "file_name": "train.json"
+  },
+  "log_interpretation": {
+    "file_name": "test_log_interpretation.json"
+  },
+  "root_cause_analysis": {
+    "file_name": "test_root_cause_analysis.json"
+  },
+  "solution_recommendation": {
+    "file_name": "test_solution_recommendation.json"
+  },
   "identity": {
     "file_name": "identity.json"
   },
