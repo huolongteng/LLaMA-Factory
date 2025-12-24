@@ -1,5 +1,5 @@
 ### model
-model_name_or_path: meta-llama/Llama-3.2-3B-Instruct
+model_name_or_path: meta-llama/Llama-3.2-1B-Instruct
 trust_remote_code: true
 
 ### method
@@ -11,7 +11,7 @@ deepspeed: examples/deepspeed/ds_z0_config.json  # choices: [ds_z0_config.json, 
 ### dataset
 dataset: train
 template: llama3
-cutoff_len: 2048
+cutoff_len: 32768
 max_samples: 5000
 overwrite_cache: true
 preprocessing_num_workers: 16
@@ -25,13 +25,12 @@ plot_loss: true
 overwrite_output_dir: true
 save_only_model: false
 report_to: wandb  # choices: [none, wandb, tensorboard, swanlab, mlflow]
-run_name: full_llama3
 
 ### train
-per_device_train_batch_size: 2
-gradient_accumulation_steps: 4
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 8
 learning_rate: 1.0e-5
-num_train_epochs: 3.0
+num_train_epochs: 2.0
 lr_scheduler_type: cosine
 warmup_ratio: 0.1
 bf16: true
@@ -39,8 +38,8 @@ ddp_timeout: 180000000
 resume_from_checkpoint: null
 
 ### eval
-eval_dataset: log_interpretation,root_cause_analysis,solution_recommendation
-val_size: 1.0
+#eval_dataset: None
+val_size: 0.1
 per_device_eval_batch_size: 16
 eval_strategy: steps
 eval_steps: 500
