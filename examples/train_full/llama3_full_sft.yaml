@@ -6,7 +6,7 @@ trust_remote_code: true
 stage: sft
 do_train: true
 finetuning_type: full
-deepspeed: examples/deepspeed/ds_z0_config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
+deepspeed: examples/deepspeed/ds_z2_config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
 
 ### dataset
 dataset: train
@@ -18,7 +18,7 @@ preprocessing_num_workers: 16
 dataloader_num_workers: 4
 
 ### output
-output_dir: saves/llama3-8b/full/sft
+output_dir: saves/llama3.2-1b/full/sft
 logging_steps: 10
 save_steps: 1000
 plot_loss: true

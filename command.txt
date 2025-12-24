@@ -12,4 +12,6 @@ llamafactory-cli train examples/train_lora/llama3_lora_sft.yaml
 # rank 8 -> 4
 
 ## above success
-llamafactory-cli train examples/train_full/llama3_full_sft.yaml
+FORCE_TORCHRUN=1 llamafactory-cli train examples/train_full/llama3_full_sft.yaml
+# evaluate
+llamafactory-cli train examples/extras/nlg_eval/llama3_lora_predict.yaml
