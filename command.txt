@@ -1,1 +1,13 @@
+pip install -e ".[torch,metrics]"
+pip install "deepspeed>=0.10.0,<=0.16.9"
+pip install wandb
+wandb login
+
+# A5000 26GB Out of memory full sft
 FORCE_TORCHRUN=1 llamafactory-cli train examples/train_full/llama3_full_sft.yaml
+
+llamafactory-cli train examples/train_lora/llama3_lora_sft.yaml
+# original script
+# training_epoch 3 -> 2, learning 1.0e-4 -> 5.0e-4
+# training_epoch 3 -> 2
+# rank 8 -> 4
