@@ -1,6 +1,5 @@
 pip install -e ".[torch,metrics]"
-pip install "deepspeed>=0.10.0,<=0.16.9"
-pip install wandb
+pip install "deepspeed>=0.10.0,<=0.16.9" wandb
 
 # A5000 26GB Out of memory full sft
 FORCE_TORCHRUN=1 llamafactory-cli train examples/train_full/llama3_full_sft.yaml
@@ -15,3 +14,12 @@ llamafactory-cli train examples/train_lora/llama3_lora_sft.yaml
 FORCE_TORCHRUN=1 llamafactory-cli train examples/train_full/llama3_full_sft.yaml
 # evaluate
 llamafactory-cli train examples/extras/nlg_eval/llama3_lora_predict.yaml
+
+
+# Train google/gemma-3-4b-it with LoRA method.
+llamafactory-cli train examples/train_lora/llama3_lora_pretrain.yaml model_name_or_path=google/gemma-3-4b-it dataset=train template=gemma3/gemma3n max_samples=65536 cutoff_len=65536 output_dir=saves/gemma-3-4b/lora/sft num_train_epochs=1.0
+
+# Train google/gemma-3-270m-it with Full-SFT methods.
+
+
+
