@@ -16,10 +16,30 @@ FORCE_TORCHRUN=1 llamafactory-cli train examples/train_full/llama3_full_sft.yaml
 llamafactory-cli train examples/extras/nlg_eval/llama3_lora_predict.yaml
 
 
+# Using `or_mask_function` or `and_mask_function` arguments require torch>=2.6
 # Train google/gemma-3-4b-it with LoRA method.
-llamafactory-cli train examples/train_lora/llama3_lora_pretrain.yaml model_name_or_path=google/gemma-3-4b-it dataset=train template=gemma3/gemma3n max_samples=65536 cutoff_len=65536 output_dir=saves/gemma-3-4b/lora/sft num_train_epochs=1.0
+llamafactory-cli train examples/train_lora/llama3_lora_sft.yaml model_name_or_path=google/gemma-3-4b-it dataset=train_gemma3 max_samples=32768 cutoff_len=32768 output_dir=saves/gemma-3-4b/lora/sft num_train_epochs=1.0 template=gemma3
+# Eval it.
+llamafactory-cli train examples/extras/nlg_eval/llama3_lora_predict.yaml model_name_or_path=google/gemma-3-4b-it adapter_name_or_path=saves/gemma-3-4b/lora/sft eval_dataset=log_interpretation_gemma3,root_cause_analysis_gemma3,solution_recommendation_gemma3 template=gemma3 max_samples=32768 cutoff_len=32768 output_dir=saves/gemma-3-4b/lora/predict
+# Merge it.
+llamafactory-cli export examples/merge_lora/llama3_lora_sft.yaml model_name_or_path=google/gemma-3-4b-it adapter_name_or_path=saves/gemma-3-4b/lora/sft template=gemma3 export_dir=output/gemma3-4b_lora_sft export_device=auto
+
 
 # Train google/gemma-3-270m-it with Full-SFT methods.
+FORCE_TORCHRUN=1 llamafactory-cli train examples/train_full/llama3_full_sft.yaml model_name_or_path=google/gemma-3-270m-it dataset=train_gemma3 max_samples=4096 cutoff_len=4096 output_dir=saves/gemma-3-270m/full/sft num_train_epochs=3.0 template=gemma3-sp
+
+# Eval it.
+# Delete "adapter_name_or_path: saves/llama3-8b/lora/sft" in yaml file.
+llamafactory-cli train examples/extras/nlg_eval/llama3_lora_predict.yaml model_name_or_path=saves/gemma-3-270m/full/sft finetuning_type=full eval_dataset=log_interpretation_gemma3,root_cause_analysis_gemma3,solution_recommendation_gemma3 template=gemma3 max_samples=4096 cutoff_len=4096 output_dir=saves/gemma-3-270m/full/predict template=gemma3-sp
+# GPTQ it. Uv install gptqmodel is needed before.
+llamafactory-cli export examples/merge_lora/llama3_gptq.yaml model_name_or_path=saves/gemma-3-270m/full/sft template=gemma3-sp export_dir=output/gemma-3-270m_gptq export_device=auto
+
+
+
+- 4b rank=8, epoch=1.0 46.428 45.294 19.975 30.889
+- 4b rank=16, epoch=1.0 47.396 44.602 19.803 31.029
+- 4b rank=16, epoch=3.0 50.564 46.996 21.884 32.832
+- 0.27b epoch=3.0 46.741 41.861 17.608 28.812
 
 
 
