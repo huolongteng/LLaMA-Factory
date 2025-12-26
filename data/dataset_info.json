@@ -2,6 +2,34 @@
   "train": {
     "file_name": "train.json"
   },
+  "train_gemma3": {
+    "file_name": "train_gemma3.jsonl",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "messages"
+    }
+  },
+  "log_interpretation_gemma3": {
+    "file_name": "test_log_interpretation_gemma3.jsonl",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "messages"
+    }
+  },
+  "root_cause_analysis_gemma3": {
+    "file_name": "test_root_cause_analysis_gemma3.jsonl",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "messages"
+    }
+  },
+  "solution_recommendation_gemma3": {
+    "file_name": "test_solution_recommendation_gemma3.jsonl",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "messages"
+    }
+  },
   "log_interpretation": {
     "file_name": "test_log_interpretation.json"
   },

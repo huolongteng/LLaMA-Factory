@@ -16,10 +16,14 @@ FORCE_TORCHRUN=1 llamafactory-cli train examples/train_full/llama3_full_sft.yaml
 llamafactory-cli train examples/extras/nlg_eval/llama3_lora_predict.yaml
 
 
+# Using `or_mask_function` or `and_mask_function` arguments require torch>=2.6
 # Train google/gemma-3-4b-it with LoRA method.
-llamafactory-cli train examples/train_lora/llama3_lora_pretrain.yaml model_name_or_path=google/gemma-3-4b-it dataset=train template=gemma3/gemma3n max_samples=65536 cutoff_len=65536 output_dir=saves/gemma-3-4b/lora/sft num_train_epochs=1.0
+train examples/train_lora/llama3_lora_sft.yaml model_name_or_path=google/gemma-3-4b-it dataset=train_gemma3 max_samples=32768 cutoff_len=32768 output_dir=saves/gemma-3-4b/lora/sft num_train_epochs=1.0 template=gemma3
 
 # Train google/gemma-3-270m-it with Full-SFT methods.
+FORCE_TORCHRUN=1 llamafactory-cli train examples/train_full/llama3_full_sft.yaml model_name_or_path=google/gemma-3-270m-it dataset=train_gemma3 max_samples=32768 cutoff_len=32768 output_dir=saves/gemma-3-270m/full/sft num_train_epochs=1.0 deepspeed=examples/deepspeed/ds_z0_config.json
+
+
 
 
 
