@@ -31,8 +31,8 @@ FORCE_TORCHRUN=1 llamafactory-cli train examples/train_full/llama3_full_sft.yaml
 # Eval it.
 # Delete "adapter_name_or_path: saves/llama3-8b/lora/sft" in yaml file.
 llamafactory-cli train examples/extras/nlg_eval/llama3_lora_predict.yaml model_name_or_path=saves/gemma-3-270m/full/sft finetuning_type=full eval_dataset=log_interpretation_gemma3,root_cause_analysis_gemma3,solution_recommendation_gemma3 template=gemma3 max_samples=4096 cutoff_len=4096 output_dir=saves/gemma-3-270m/full/predict template=gemma3-sp
-# GPTQ it. Uv install gptqmodel is needed before.
-llamafactory-cli export examples/merge_lora/llama3_gptq.yaml model_name_or_path=saves/gemma-3-270m/full/sft template=gemma3-sp export_dir=output/gemma-3-270m_gptq export_device=auto
+# GPTQ it. Uv install gptqmodel, bitblas is needed before.
+# Use gptq directly.
 
 
 
@@ -40,6 +40,11 @@ llamafactory-cli export examples/merge_lora/llama3_gptq.yaml model_name_or_path=
 - 4b rank=16, epoch=1.0 47.396 44.602 19.803 31.029
 - 4b rank=16, epoch=3.0 50.564 46.996 21.884 32.832
 - 0.27b epoch=3.0 46.741 41.861 17.608 28.812
+- 0.27b 4bit 43.775 39.378 15.077 26.173
+
+# Distill process.
+pip install trl
+
 
 
 
