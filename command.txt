@@ -43,8 +43,7 @@ llamafactory-cli train examples/extras/nlg_eval/llama3_lora_predict.yaml model_n
 - 0.27b 4bit 43.775 39.378 15.077 26.173
 
 # Distill process.
-pip install trl
-
+pip install datasets transformers trl hf_transfer
 
 
 
